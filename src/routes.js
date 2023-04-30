@@ -1,6 +1,7 @@
 const express = require("express");
 const userController = require("./controllers/user");
 const postController = require("./controllers/post");
+const likesController = require("./controllers/like");
 const addModels = require("./middleware/add-models");
 const checkAuthentication = require("./middleware/check-authentication");
 
@@ -43,4 +44,9 @@ Router.get("/list", postController.listAll);
 Router.get("/list/:id", postController.listFromUser);
 //Update
 //Delete
+
+// LIKED CRUD
+// Liking/unliking a post
+Router.post("/toggleLike", likesController.toggleLike);
+
 module.exports = Router;
