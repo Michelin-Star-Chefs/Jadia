@@ -19,17 +19,43 @@ class Post {
     this.description = description;
   }
   //create
-  static async create() {
+  static async create(
+    user_id,
+    location,
+    start_date,
+    end_date,
+    photo,
+    description
+  ) {
     try {
-      const postInsert = await knex.raw()
-      const newPost = postInsert.rows[0]
-      return newPost
+      const postInsert = await knex.raw(
+        `
+        INSERT INTO posts(user_id,location,start_date,end_date,photo, description)
+        VALUES (?,?,?,?,?,?)
+        RETURNING *;
+      `,
+        [user_id, location, start_date, end_date, photo, description]
+      );
+      const newPost = postInsert.rows[0];
+      return newPost;
     } catch (err) {
-      console.log(err)
-      return null
+      console.log(err);
+      return null;
     }
   }
   //list
+  static async list() {
+    try {
+      const query = "SELECT * FROM posts";
+      const { rows } = await knex.raw(query);
+      return rows.map(post => new Post(post));
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+  }
   //update
   //delete
 }
+
+module.exports = Post;

@@ -39,6 +39,7 @@ Router.delete("/users/logout", userController.logout);
 //Create - remember, thiis is @ /api/...
 Router.post("/created", postController.create);
 //Read
+Router.get("/list", postController.list);
 //Update
 //Delete
 module.exports = Router;
