@@ -1,12 +1,13 @@
 const express = require("express");
 const userController = require("./controllers/user");
-const postController = require("./controllers/post")
+const postController = require("./controllers/post");
 const addModels = require("./middleware/add-models");
 const checkAuthentication = require("./middleware/check-authentication");
 
 const Router = express.Router();
 Router.use(addModels);
 
+// AUTHENTICATION + AUTHORIZATION CRUD
 Router.get("/cookieCounter", (req, res) => {
   const { session } = req;
   console.log(session);
@@ -34,4 +35,10 @@ Router.patch("/users/:id", checkAuthentication, userController.update);
 // Delete
 Router.delete("/users/logout", userController.logout);
 
+// POSTS CRUD
+//Create - remember, thiis is @ /api/...
+Router.post("/created", postController.create);
+//Read
+//Update
+//Delete
 module.exports = Router;
