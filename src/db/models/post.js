@@ -61,15 +61,38 @@ class Post {
         FROM posts
         JOIN users ON users.id = posts.user_id
         WHERE users.id = ?`;
-      const { rows } = await knex.raw(query, [ user_id ]);
+      const { rows } = await knex.raw(query, [user_id]);
       return rows.map(post => new Post(post));
     } catch (err) {
       console.error(err);
       return null;
     }
   }
-  //update
   //delete
+  static async deletePost(post_id) {
+    try {
+      await knex.raw(
+        `
+      DELETE
+      FROM likes
+      WHERE post_id = ?;
+      `,
+        [post_id]
+      );
+      const result = await knex.raw(
+        `
+      DELETE
+      FROM posts
+      WHERE post_id = ?;
+      `,
+        [post_id]
+      );
+      return result.rowCount;
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  }
 }
 
 module.exports = Post;

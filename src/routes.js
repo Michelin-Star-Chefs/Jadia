@@ -44,6 +44,7 @@ Router.get("/list", postController.listAll);
 Router.get("/list/:id", postController.listFromUser);
 //Update
 //Delete
+Router.delete("/delete/:id", postController.deletePost);
 
 // LIKED CRUD
 // Liking/unliking a post
