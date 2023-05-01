@@ -2,11 +2,8 @@ const Comment = require('../../db/models/comment');
 const knex = require('../../db/knex');
 
 const createComment = async (req, res) => {
-  const { postId, userId, content } = req.body;
-
-  if (!postId || !userId || !content) {
-    return res.status(400).json({ error: "Missing required fields" });
-  }
+  const postId = parseInt(req.params.postId, 10);
+  const { userId, content } = req.body;
 
   try {
     const comment = await Comment.create({
@@ -19,8 +16,7 @@ const createComment = async (req, res) => {
 
     return res.status(201).json({ comment });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "Internal server error" });
+    return res.status(500).json({ error: error.message });
   }
 };
 

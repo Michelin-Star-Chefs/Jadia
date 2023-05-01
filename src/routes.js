@@ -53,8 +53,8 @@ Router.post("/toggleLike", likesController.toggleLike);
 
 //COMMENTS CRUD
 //create
-Router.post('/comments', commentsController.createComment);
+Router.post('/posts/:postId/comments', commentsController.createComment);
 //delete
-Router.delete('/comments/:commentId', commentsController.deleteComment);
+Router.delete('/posts/:postId/comments/:commentId', commentsController.deleteComment);
 
 module.exports = Router;
