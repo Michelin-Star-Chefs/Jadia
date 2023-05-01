@@ -2,6 +2,7 @@ const express = require("express");
 const userController = require("./controllers/user");
 const postController = require("./controllers/post");
 const likesController = require("./controllers/like");
+const commentsController = require('./controllers/comment');
 const addModels = require("./middleware/add-models");
 const checkAuthentication = require("./middleware/check-authentication");
 
@@ -49,5 +50,12 @@ Router.delete("/delete/:id", postController.deletePost);
 // LIKED CRUD
 // Liking/unliking a post
 Router.post("/toggleLike", likesController.toggleLike);
+
+//COMMENTS CRUD
+//create
+Router.post('/comments', commentsController.createComment);
+//delete
+Router.delete('/comments/:commentsId', commentsController.deleteComment);
+
 
 module.exports = Router;
