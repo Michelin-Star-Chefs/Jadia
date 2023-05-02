@@ -6,7 +6,7 @@
 exports.up = async knex => {
   return knex.schema.createTable("profile_pictures", table => {
     table.integer("user_id");
-    table.binary("data");
+    table.text("image_url");
   });
 };
 
