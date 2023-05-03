@@ -12,6 +12,6 @@ app.use(logRoutes);
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "..", "public")));
 
-app.use("/api", routes);
+app.use(routes);
 
 module.exports = app;
