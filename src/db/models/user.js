@@ -14,7 +14,7 @@ class User {
     try {
       const query = "SELECT * FROM users";
       const { rows } = await knex.raw(query);
-      return rows.map((user) => new User(user));
+      return rows.map(user => new User(user));
     } catch (err) {
       console.error(err);
       return null;
@@ -50,7 +50,6 @@ class User {
   static async create(username, password) {
     try {
       const passwordHash = await hashPassword(password);
-
       const query = `INSERT INTO users (username, password_hash)
         VALUES (?, ?) RETURNING *`;
       const {
@@ -72,7 +71,7 @@ class User {
     }
   }
 
-  update = async (username) => {
+  update = async username => {
     // dynamic queries are easier if you add more properties
     try {
       const [updatedUser] = await knex("users")
@@ -86,7 +85,7 @@ class User {
     }
   };
 
-  isValidPassword = async (password) =>
+  isValidPassword = async password =>
     isValidPassword(password, this.#passwordHash);
 }
 

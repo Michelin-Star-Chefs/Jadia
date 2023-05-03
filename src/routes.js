@@ -38,8 +38,8 @@ Router.patch("/users/:id", checkAuthentication, userController.update);
 Router.delete("/users/logout", userController.logout);
 
 // POSTS CRUD
-//Create - remember, thiis is @ /api/...
-Router.post("/created", postController.create);
+//Create - remember, this is @ /api/...
+Router.post("/post", postController.create);
 //Read
 Router.get("/list", postController.listAll);
 Router.get("/list/:id", postController.listFromUser);
@@ -48,7 +48,7 @@ Router.get("/list/:id", postController.listFromUser);
 Router.delete("/delete/:id", postController.deletePost);
 
 // LIKED CRUD
-// Liking/unliking a post
+//Liking/unliking a post
 Router.post("/toggleLike", likesController.toggleLike);
 
 //COMMENTS CRUD

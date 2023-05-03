@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="./styles/style.css" /> -->
+    <script type="module" src="./scripts/post.js"></script>
+  </head>
+  <body>
+    <nav id="main-nav"></nav>
+    <main>
+      <form id="new-post-form">
+        <label for="location-input">Where did you go?</label>
+        <input
+          type="text"
+          name="location-input"
+          id="location-input"
+          placeholder="Trip Location"
+        />
+        <br />
+        <label for="start-input">Start Date</label>
+        <input type="date" name="start-input" id="start-input" />
+        <br />
+        <label for="end-input">End Date</label>
+        <input type="date" name="end-input" id="end-input" />
+        <br />
+        <label for="description-input">Description</label>
+        <input
+          type="text"
+          name="description-input"
+          id="description-input"
+          placeholder="Trip Description"
+        />
+        <br />
+        <label for="image-input">Image Url</label>
+        <input
+          type="url"
+          name="image-input"
+          id="image-input"
+          placeholder="enter a valid url"
+        />
+        <br />
+        <input type="submit" value="Create Post" />
+      </form>
+    </main>
+  </body>
+</html>

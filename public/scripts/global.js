@@ -40,7 +40,7 @@ const fetchLoggedInUser = async () => {
 };
 
 // UPDATE USER
-const updateUsernameHandler = async (form) => {
+const updateUsernameHandler = async form => {
   const formData = new FormData(form);
   const username = formData.get("username");
   if (!username) return alert("Username is required");
@@ -62,7 +62,7 @@ const logOutHandler = async () => {
 };
 
 // Nav Helper
-const setNav = (hasLoggedInUser) => {
+const setNav = hasLoggedInUser => {
   const loggedOutNavHtml = `<ul>
     <li><a href="/">Home</a></li>
     <li><a href="./create.html">Sign Up</a></li>
@@ -72,6 +72,7 @@ const setNav = (hasLoggedInUser) => {
   const loggedInNavHtml = `<ul>
     <li><a href="/">Home</a></li>
     <li><a href="./user.html">Profile</a></li>
+    <li><a href="./post.html">Create Post</a></li>
   </ul>`;
 
   const navHtml = hasLoggedInUser ? loggedInNavHtml : loggedOutNavHtml;
