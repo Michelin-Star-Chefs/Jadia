@@ -44,6 +44,7 @@ Router.post("/post", postController.create);
 Router.get("/list", postController.listAll);
 Router.get("/list/:id", postController.listFromUser);
 //Update
+Router.patch("/update/:id", postController.updatePost);
 //Delete
 Router.delete("/delete/:id", postController.deletePost);
 
