@@ -12,24 +12,24 @@ class Comment {
     this.updated_at = updated_at;
   }
 
-  static async create({ post_id, user_id, content, create_at, update_at }) {
+  static async create(post_id, user_id, content, created_at, updated_at) {
     try {
       const [createdComment] = await knex("comments")
         .insert({
           post_id,
           user_id,
           content,
-          created_at: create_at,
-          updated_at: update_at,
+          created_at: created_at,
+          updated_at: updated_at,
         })
         .returning("*");
-
+  
       return new Comment(createdComment);
     } catch (err) {
       console.error(err);
       return null;
     }
-  }
+  }  
 
   static async findByPk(comment_id) {
     try {

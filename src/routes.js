@@ -52,6 +52,7 @@ Router.delete("/delete/:id", postController.deletePost);
 //Liking/unliking a post
 Router.post("/toggleLike", likesController.toggleLike);
 
+
 //COMMENTS CRUD
 //create
 Router.post("/posts/:postId/comments", commentsController.createComment);
