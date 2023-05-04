@@ -13,8 +13,22 @@ exports.seed = async knex => {
   await User.create("l33t-guy", "password1");
 
   // Posts
-  await Post.create(1, "New York City", "2023-05-01", "2023-05-10", "photo1.jpg", "Visiting the Big Apple!");
-  await Post.create(2, "Los Angeles", "2023-05-05", "2023-05-15", "photo2.jpg", "Exploring Hollywood!");
+  await Post.create(
+    1,
+    "New York City",
+    "2023-05-01",
+    "2023-05-10",
+    "https://upload.wikimedia.org/wikipedia/commons/4/47/New_york_times_square-terabass.jpg",
+    "Visiting the Big Apple!"
+  );
+  await Post.create(
+    2,
+    "Los Angeles",
+    "2023-05-05",
+    "2023-05-15",
+    "https://lp-cms-production.imgix.net/2021-06/shutterstockRF_186048416.jpg?auto=format&w=1440&h=810&fit=crop&q=75",
+    "Exploring Hollywood!"
+  );
 
   // Likes
   await Like.toggleLike(1, 2);

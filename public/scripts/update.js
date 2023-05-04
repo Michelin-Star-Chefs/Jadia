@@ -14,12 +14,11 @@ const makeInputObj = arr => {
     photo: arr[4],
   };
 };
-
 const dataPush = async obj => {
   const user = await fetchLoggedInUser();
   obj.user_id = user.id;
   const options = getFetchOptions(obj);
-  const [_response, err] = await handleFetch("/post", options);
+  const [_response, err] = await handleFetch("/update/:id", options);
   console.log(_response, err);
 };
 
@@ -27,8 +26,8 @@ const main = async () => {
   const user = await fetchLoggedInUser();
   setNav(!!user);
 
-  const newPostForm = document.querySelector("#new-post-form");
-  newPostForm.addEventListener("submit", e => {
+  const updatePostForm = document.querySelector("#update-post-form");
+  updatePostForm.addEventListener("submit", e => {
     e.preventDefault();
     const inputs = [...e.target.children]
       .filter(child => child.type && child.type != "submit")

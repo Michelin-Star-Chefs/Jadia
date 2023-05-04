@@ -9,7 +9,7 @@ exports.up = knex => {
     table.string("location", 255).notNullable();
     table.date("start_date");
     table.date("end_date");
-    table.binary("photo");
+    table.string("photo");
     table.text("description");
     table.timestamps(true, true);
   });

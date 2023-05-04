@@ -114,11 +114,7 @@ class Post {
         [post_id]
       );
       const result = await knex.raw(
-        `
-      DELETE
-      FROM posts
-      WHERE post_id = ?;
-      `,
+        `DELETE FROM posts WHERE post_id = ? RETURNING *;`,
         [post_id]
       );
       return result.rowCount;
