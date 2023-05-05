@@ -57,9 +57,13 @@ const addLikeFunctionality = async post_id => {
 
 //make a function given an array of objs, add all the objs to to the page
 const addCommentsToPost = async (post_id, postComments, commentsSection) => {
-  // console.log(commentsSection);
-  ////commentsSection.append(comment)
+  postComments.forEach(comment => {
+    const commentElement = document.createElement("p");
+    commentElement.innerText = comment.content;
+    commentsSection.appendChild(commentElement);
+  });
 };
+
 
 const main = async () => {
   const user = await fetchLoggedInUser();
