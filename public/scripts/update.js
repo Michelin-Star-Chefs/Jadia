@@ -18,7 +18,8 @@ const dataPush = async obj => {
   const user = await fetchLoggedInUser();
   obj.user_id = user.id;
   const options = getFetchOptions(obj);
-  const [_response, err] = await handleFetch("/update/:id", options);
+  // should be hitting a route with dynamic value
+  const [_response, err] = await handleFetch("/api/update/:id", options);
   console.log(_response, err);
 };
 

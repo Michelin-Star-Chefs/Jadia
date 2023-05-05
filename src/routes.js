@@ -54,16 +54,11 @@ Router.post("/toggleLike", likesController.toggleLike);
 
 //COMMENTS CRUD
 //create
-Router.post("/posts/:postId/comments", commentsController.createComment);
+Router.post("/posts/:post_id/comments", commentsController.createComment);
 //read
-Router.get("/posts/:post_id/comments", () => {
-  console.log(commentsController);
-  //commentsController.listFromPost;
-});
+Router.get("/posts/:post_id/comments", commentsController.listFromPost);
+
 //delete
-Router.delete(
-  "/posts/:postId/comments/:commentId",
-  commentsController.deleteComment
-);
+Router.delete("/posts/:post_id/comments/:id", commentsController.deleteComment);
 
 module.exports = Router;

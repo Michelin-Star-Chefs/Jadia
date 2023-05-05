@@ -51,7 +51,7 @@ const addLikeFunctionality = async post_id => {
     post_id: post_id,
   };
   const options = await getFetchOptions(body);
-  const [_response, err] = await handleFetch("/toggleLike", options);
+  const [_response, err] = await handleFetch("/api/toggleLike", options);
   return _response.likes_count;
 };
 
@@ -70,7 +70,7 @@ const main = async () => {
   if (!user) return redirectToLogin();
   setNav(!!user);
 
-  const [posts, _err] = await handleFetch("/list", {
+  const [posts, _err] = await handleFetch("/api/list", {
     method: "GET",
   });
 

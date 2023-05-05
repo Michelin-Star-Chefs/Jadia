@@ -19,7 +19,7 @@ const dataPush = async obj => {
   const user = await fetchLoggedInUser();
   obj.user_id = user.id;
   const options = getFetchOptions(obj);
-  const [_response, err] = await handleFetch("/post", options);
+  const [_response, err] = await handleFetch("/api/post", options);
   console.log(_response, err);
 };
 

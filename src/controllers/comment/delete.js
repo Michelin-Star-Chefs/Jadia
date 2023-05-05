@@ -2,8 +2,8 @@ const Comment = require("../../db/models/comment");
 const knex = require("../../db/knex");
 
 const deleteComment = async (req, res) => {
-  const postId = parseInt(req.params.postId, 10);
-  const commentId = parseInt(req.params.commentId, 10);
+  const postId = parseInt(req.params.post_id, 10);
+  const commentId = parseInt(req.params.id, 10);
 
   try {
     const comment = await Comment.findByPk(commentId);

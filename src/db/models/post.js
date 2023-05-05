@@ -46,9 +46,10 @@ class Post {
   //list
   static async listAll() {
     try {
-      const query = "SELECT * FROM posts";
+      const query = "SELECT posts.*, username FROM posts JOIN users ON posts.user_id = users.id";
       const { rows } = await knex.raw(query);
-      return rows.map(post => new Post(post));
+      return rows
+      // return rows.map(post => new Post(post));
     } catch (err) {
       console.error(err);
       return null;

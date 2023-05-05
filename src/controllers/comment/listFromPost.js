@@ -7,4 +7,6 @@ const listFromPost = async (req, res) => {
   res.send(comments);
 };
 
-module.exports = listFromPost;
+module.exports = {
+  listFromPost
+}

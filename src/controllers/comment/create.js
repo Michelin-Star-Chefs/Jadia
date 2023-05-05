@@ -2,7 +2,7 @@ const Comment = require('../../db/models/comment');
 const knex = require('../../db/knex');
 
 const createComment = async (req, res) => {
-  const postId = parseInt(req.params.postId);
+  const postId = parseInt(req.params.post_id);
   const { userId, content } = req.body;
 
   try {
