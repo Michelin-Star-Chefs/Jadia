@@ -2,17 +2,17 @@ const Comment = require('../../db/models/comment');
 const knex = require('../../db/knex');
 
 const createComment = async (req, res) => {
-  const postId = parseInt(req.params.postId, 10);
+  const postId = parseInt(req.params.postId);
   const { userId, content } = req.body;
 
   try {
-    const comment = await Comment.create({
-      post_id: postId,
-      user_id: userId,
+    const comment = await Comment.create(
+      postId,
+      userId,
       content,
-      create_at: new Date(),
-      update_at: new Date()
-    });
+      new Date(),
+      new Date()
+    );
 
     return res.status(201).json({ comment });
   } catch (error) {
