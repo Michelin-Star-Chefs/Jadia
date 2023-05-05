@@ -23,6 +23,8 @@ const dataPush = async obj => {
   console.log(_response, err);
 };
 
+const goToFeed = () => window.location.assign("/feed.html");
+
 const main = async () => {
   const user = await fetchLoggedInUser();
   setNav(!!user);
@@ -35,6 +37,7 @@ const main = async () => {
       .map(child => child.value);
     const obj = makeInputObj(inputs);
     dataPush(obj);
+    goToFeed();
   });
 };
 

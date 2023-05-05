@@ -28,6 +28,9 @@ function addPostToPage(postObj) {
   likeCount.setAttribute("data-post-id", postObj.post_id);
   const description = document.createElement("p");
   description.innerText = postObj.description;
+  const commentsSection = document.createElement("section");
+  commentsSection.className = "commentSection";
+  commentsSection.setAttribute("data-post-id", postObj.post_id);
   container.append(
     location,
     image,
@@ -35,7 +38,8 @@ function addPostToPage(postObj) {
     end_date,
     like,
     likeCount,
-    description
+    description,
+    commentsSection
   );
   document.body.appendChild(container);
 }
@@ -51,6 +55,12 @@ const addLikeFunctionality = async post_id => {
   return _response.likes_count;
 };
 
+//make a function given an array of objs, add all the objs to to the page
+const addCommentsToPost = async (post_id, postComments, commentsSection) => {
+  // console.log(commentsSection);
+  ////commentsSection.append(comment)
+};
+
 const main = async () => {
   const user = await fetchLoggedInUser();
   if (!user) return redirectToLogin();
@@ -59,7 +69,29 @@ const main = async () => {
   const [posts, _err] = await handleFetch("/list", {
     method: "GET",
   });
+
+  // const [comments , _err] = await handleFetch("/posts/:post_id/comments", { method: "GET" })
+  const allComments = [
+    {
+      post_id: 1,
+      user_id: 2,
+      content: "from user 2 on post 1",
+    },
+    {
+      post_id: 2,
+      user_id: 1,
+      content: "from user 1 on post 2",
+    },
+    {
+      post_id: 2,
+      user_id: 2,
+      content: "from user 2 on post 2",
+    },
+  ];
+
   posts.forEach(post => addPostToPage(post.post_id));
+
+  // LIKES BUTTON
   const likes = Array.from(document.getElementsByClassName("likeButton"));
   likes.forEach(button => {
     button.addEventListener("click", async e => {
@@ -68,6 +100,19 @@ const main = async () => {
       const likeCount = e.target.nextElementSibling;
       likeCount.innerText = likesAmount;
     });
+  });
+
+  // COMMENTS SECTION
+  const commentsSection = Array.from(
+    document.getElementsByClassName("commentSection")
+  );
+  commentsSection.forEach(section => {
+    const post_id = section.getAttribute("data-post-id");
+    const postComments = allComments.filter(obj => obj.post_id == post_id);
+    console.log(section, post_id, postComments);
+    if (postComments.length > 0) {
+      addCommentsToPost(post_id, postComments, section);
+    }
   });
 };
 
