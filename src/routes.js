@@ -52,10 +52,14 @@ Router.delete("/delete/:id", postController.deletePost);
 //Liking/unliking a post
 Router.post("/toggleLike", likesController.toggleLike);
 
-
 //COMMENTS CRUD
 //create
 Router.post("/posts/:postId/comments", commentsController.createComment);
+//read
+Router.get("/posts/:post_id/comments", () => {
+  console.log(commentsController);
+  //commentsController.listFromPost;
+});
 //delete
 Router.delete(
   "/posts/:postId/comments/:commentId",
