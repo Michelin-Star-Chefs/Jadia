@@ -9,39 +9,67 @@ const redirectToLogin = () => window.location.assign("/login.html");
 
 function addPostToPage(postObj) {
   const container = document.createElement("div");
-  const location = document.createElement("h3");
+  container.className = "card post";
+  const cardContent = document.createElement("div");
+  cardContent.className = "card-content";
+  const media = document.createElement("div");
+  media.className = "media";
+  const mediaLeft = document.createElement("div");
+  mediaLeft.className = "media-left";
+  const figure = document.createElement("figure");
+  figure.className = "image is-64x64";
+  const profileImage = document.createElement("img");
+  profileImage.src =
+    postObj.profile_photo ||
+    "../../public/images/default_image.jpg";
+  figure.appendChild(profileImage);
+  mediaLeft.appendChild(figure);
+  const mediaContent = document.createElement("div");
+  mediaContent.className = "media-content";
+  const username = document.createElement("p");
+  username.className = "subtitle is-6";
+  username.innerText = postObj.username;
+  const location = document.createElement("p");
+  location.className = "subtitle is-6";
   location.innerText = postObj.location;
-  const image = document.createElement("img");
-  image.src =
+  mediaContent.appendChild(username);
+  mediaContent.appendChild(location);
+  media.appendChild(mediaLeft);
+  media.appendChild(mediaContent);
+  const postImage = document.createElement("img");
+  postImage.src =
     postObj.photo ||
     "https://climate.onep.go.th/wp-content/uploads/2020/01/default-image.jpg";
-  const start_date = document.createElement("p");
-  start_date.innerText = postObj.start_date;
-  const end_date = document.createElement("p");
-  end_date.innerText = postObj.end_date;
-  const like = document.createElement("img");
-  like.className = "likeButton";
-  like.src = "../../images/unliked.png";
-  like.setAttribute("data-post-id", postObj.post_id);
-  const likeCount = document.createElement("p");
+  postImage.className = "post-image";
+  const postDescription = document.createElement("div");
+  postDescription.className = "content";
+  postDescription.innerText = postObj.description;
+  const postFooter = document.createElement("footer");
+  postFooter.className = "card-footer";
+  const likeIcon = document.createElement("a");
+  likeIcon.className = "card-footer-item";
+  const likeImage = document.createElement("img");
+  likeImage.className = "likeButton";
+  likeImage.src = "../../public/images/unliked.png";
+  likeImage.setAttribute("data-post-id", postObj.post_id);
+  const likeCount = document.createElement("span");
   likeCount.innerText = postObj.likes_count;
   likeCount.setAttribute("data-post-id", postObj.post_id);
-  const description = document.createElement("p");
-  description.innerText = postObj.description;
-  const commentsSection = document.createElement("section");
-  commentsSection.className = "commentSection";
-  commentsSection.setAttribute("data-post-id", postObj.post_id);
-  container.append(
-    location,
-    image,
-    start_date,
-    end_date,
-    like,
-    likeCount,
-    description,
-    commentsSection
-  );
-  document.body.appendChild(container);
+  likeIcon.appendChild(likeImage);
+  likeIcon.appendChild(likeCount);
+  const commentIcon = document.createElement("a");
+  commentIcon.className = "card-footer-item";
+  const commentImage = document.createElement("img");
+  commentImage.src = "../../public/images/comment.png";
+  commentIcon.appendChild(commentImage);
+  postFooter.appendChild(likeIcon);
+  postFooter.appendChild(commentIcon);
+  cardContent.appendChild(media);
+  cardContent.appendChild(postImage);
+  cardContent.appendChild(postDescription);
+  cardContent.appendChild(postFooter);
+  container.appendChild(cardContent);
+  document.querySelector("main").appendChild(container);
 }
 
 const addLikeFunctionality = async post_id => {
@@ -72,24 +100,6 @@ const main = async () => {
   const [posts, _postErr] = await handleFetch("/api/list", {
     method: "GET",
   });
-
-  // const allComments = [
-  //   {
-  //     post_id: 1,
-  //     user_id: 2,
-  //     content: "from user 2 on post 1",
-  //   },
-  //   {
-  //     post_id: 2,
-  //     user_id: 1,
-  //     content: "from user 1 on post 2",
-  //   },
-  //   {
-  //     post_id: 2,
-  //     user_id: 2,
-  //     content: "from user 2 on post 2",
-  //   },
-  // ];
   posts.forEach(post => addPostToPage(post));
 
   // LIKES BUTTON
