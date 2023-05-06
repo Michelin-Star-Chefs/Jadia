@@ -8,7 +8,7 @@ import {
 const redirectToLogin = () => window.location.assign("/login.html");
 
 function addPostToPage(postObj) {
-  const container = document.createElement("section");
+  const container = document.createElement("div");
   const location = document.createElement("h3");
   location.innerText = postObj.location;
   const image = document.createElement("img");
@@ -64,36 +64,33 @@ const addCommentsToPost = async (post_id, postComments, commentsSection) => {
   });
 };
 
-
 const main = async () => {
   const user = await fetchLoggedInUser();
   if (!user) return redirectToLogin();
   setNav(!!user);
 
-  const [posts, _err] = await handleFetch("/api/list", {
+  const [posts, _postErr] = await handleFetch("/api/list", {
     method: "GET",
   });
 
-  // const [comments , _err] = await handleFetch("/posts/:post_id/comments", { method: "GET" })
-  const allComments = [
-    {
-      post_id: 1,
-      user_id: 2,
-      content: "from user 2 on post 1",
-    },
-    {
-      post_id: 2,
-      user_id: 1,
-      content: "from user 1 on post 2",
-    },
-    {
-      post_id: 2,
-      user_id: 2,
-      content: "from user 2 on post 2",
-    },
-  ];
-
-  posts.forEach(post => addPostToPage(post.post_id));
+  // const allComments = [
+  //   {
+  //     post_id: 1,
+  //     user_id: 2,
+  //     content: "from user 2 on post 1",
+  //   },
+  //   {
+  //     post_id: 2,
+  //     user_id: 1,
+  //     content: "from user 1 on post 2",
+  //   },
+  //   {
+  //     post_id: 2,
+  //     user_id: 2,
+  //     content: "from user 2 on post 2",
+  //   },
+  // ];
+  posts.forEach(post => addPostToPage(post));
 
   // LIKES BUTTON
   const likes = Array.from(document.getElementsByClassName("likeButton"));
@@ -110,10 +107,12 @@ const main = async () => {
   const commentsSection = Array.from(
     document.getElementsByClassName("commentSection")
   );
-  commentsSection.forEach(section => {
+  commentsSection.forEach(async section => {
     const post_id = section.getAttribute("data-post-id");
-    const postComments = allComments.filter(obj => obj.post_id == post_id);
-    console.log(section, post_id, postComments);
+    const [postComments, _commentErr] = await handleFetch(
+      `/api/posts/${post_id}/comments`,
+      { method: "GET" }
+    );
     if (postComments.length > 0) {
       addCommentsToPost(post_id, postComments, section);
     }

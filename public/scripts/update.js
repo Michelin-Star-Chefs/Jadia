@@ -14,12 +14,16 @@ const makeInputObj = arr => {
     photo: arr[4],
   };
 };
+
+//post_id -> handle fetch
 const dataPush = async obj => {
+  console.log(obj);
   const user = await fetchLoggedInUser();
   obj.user_id = user.id;
-  const options = getFetchOptions(obj);
+  const options = getFetchOptions(obj, "PATCH");
+  console.log(options);
   // should be hitting a route with dynamic value
-  const [_response, err] = await handleFetch("/api/update/:id", options);
+  const [_response, err] = await handleFetch(`/api/update/${post_id}`, options);
   console.log(_response, err);
 };
 
