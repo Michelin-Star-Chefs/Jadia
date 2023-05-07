@@ -4,32 +4,57 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./scripts/styles/style.css"  />
+    <link rel="stylesheet" href="./scripts/styles/login.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <script type="module" src="./scripts/login.js"></script>
-    <title>Log in</title>
+    <title>Login</title>
   </head>
   <body>
-    <nav id="main-nav"></nav>
-    <main>
-      <h1 id="log-in">Log In</h1>
-      <form id="create-form" aria-describedby="log-in">
-        <label for="username">Username</label>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          autocomplete="username"
-        />
-        <label for="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          autocomplete="password"
-        />
 
-        <button type="submit">Log in!</button>
-      </form>
-    </main>
+    <nav id="main-nav" class="navbar"></nav>
+
+    <div class="main-wrapper">
+      <main class="container">
+        <div class="section">
+          <h1 id="login" class="title has-text-centered">Login</h1>
+          <p style="color:#708f94" class="has-text-centered">Log in to share your travel adventures today!</p>
+        </div>
+        <form id="login-form" aria-describedby="login" novalidate>
+          <div class="input-wrapper">
+            <div class="field">
+              <div class="control">
+                <input
+                  type="text"
+                  name="username"
+                  id="username"
+                  autocomplete="username"
+                  class="input"
+                  placeholder="Username"
+                  required
+                />
+              </div>
+              <p class="help is-danger" id="username-error"></p>
+            </div>
+            <div class="field">
+              <div class="control">
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  autocomplete="password"
+                  class="input"
+                  placeholder="Password"
+                  required
+                />
+              </div>
+              <p class="help is-danger" id="password-error"></p>
+            </div>
+          </div>
+          <button type="submit" class="button is-fullwidth">Log in</button>
+          <p style="color: #708f94;" class="has-text-centered mt-3">Don't have an account? <a href="./create.html">Sign up</a></p>
+        </form>
+      </main>
+    </div>
+
   </body>
 </html>
