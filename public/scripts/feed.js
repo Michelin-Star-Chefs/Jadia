@@ -132,10 +132,14 @@ function addPostToPage(postObj, user_id) {
   likeCount.setAttribute("data-post-id", postObj.post_id);
   likeIcon.appendChild(likeImage);
   likeIcon.appendChild(likeCount);
+  // comments
   const commentIcon = document.createElement("a");
   commentIcon.className = "card-footer-item";
   const commentImage = document.createElement("img");
   commentImage.src = "../../public/images/comment.png";
+  commentImage.classList.add("js-modal-trigger");
+  commentImage.setAttribute("data-target", postObj.post_id);
+  // appends
   commentIcon.appendChild(commentImage);
   postFooter.appendChild(likeIcon);
   postFooter.appendChild(commentIcon);
@@ -145,6 +149,8 @@ function addPostToPage(postObj, user_id) {
   cardContent.appendChild(postFooter);
   container.appendChild(cardContent);
   document.querySelector("main").appendChild(container);
+  //comments section code
+  addCommentModalHTML(postObj.post_id);
 }
 
 const addLikeFunctionality = async post_id => {
@@ -158,14 +164,100 @@ const addLikeFunctionality = async post_id => {
   return _response.likes_count;
 };
 
-//make a function given an array of objs, add all the objs to to the page
-const addCommentsToPost = async (post_id, postComments, commentsSection) => {
-  postComments.forEach(comment => {
-    const commentElement = document.createElement("p");
-    commentElement.innerText = comment.content;
-    commentsSection.appendChild(commentElement);
+// //make a function given an array of objs, add all the objs to to the page
+// const addCommentsToPost = async (post_id, postComments, commentsSection) => {
+//   postComments.forEach(comment => {
+//     const commentElement = document.createElement("p");
+//     commentElement.innerText = comment.content;
+//     commentsSection.appendChild(commentElement);
+//   });
+// };
+
+function addCommentModalHTML(post_id) {
+  // Create the modal container
+  const modalContainer = document.createElement("div");
+  modalContainer.setAttribute("id", post_id);
+  modalContainer.setAttribute("class", "modal");
+
+  // Create the modal background
+  const modalBackground = document.createElement("div");
+  modalBackground.setAttribute("class", "modal-background");
+  modalContainer.appendChild(modalBackground);
+
+  // Create the modal content
+  const modalContent = document.createElement("div");
+  modalContent.setAttribute("class", "modal-content");
+  modalContainer.appendChild(modalContent);
+
+  // Create the box element
+  const box = document.createElement("div");
+  box.setAttribute("class", "box");
+  modalContent.appendChild(box);
+
+  // Add content to the box
+  const content = document.createElement("p");
+  content.textContent = "Modal JS example";
+  box.appendChild(content);
+
+  // Create the close button
+  const closeButton = document.createElement("button");
+  closeButton.setAttribute("class", "modal-close is-large");
+  closeButton.setAttribute("aria-label", "close");
+  modalContainer.appendChild(closeButton);
+
+  // Add the modal to the document body
+  document.body.appendChild(modalContainer);
+}
+
+function makeModalsWork() {
+  // Functions to open and close a modal
+  function openModal($el) {
+    $el.classList.add("is-active");
+  }
+
+  function closeModal($el) {
+    $el.classList.remove("is-active");
+  }
+
+  function closeAllModals() {
+    (document.querySelectorAll(".modal") || []).forEach($modal => {
+      closeModal($modal);
+    });
+  }
+
+  // Add a click event on buttons to open a specific modal
+  (document.querySelectorAll(".js-modal-trigger") || []).forEach($trigger => {
+    const modal = $trigger.dataset.target;
+    const $target = document.getElementById(modal);
+
+    $trigger.addEventListener("click", () => {
+      openModal($target);
+    });
   });
-};
+
+  // Add a click event on various child elements to close the parent modal
+  (
+    document.querySelectorAll(
+      ".modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button"
+    ) || []
+  ).forEach($close => {
+    const $target = $close.closest(".modal");
+
+    $close.addEventListener("click", () => {
+      closeModal($target);
+    });
+  });
+
+  // Add a keyboard event to close all modals
+  document.addEventListener("keydown", event => {
+    const e = event || window.event;
+
+    if (e.keyCode === 27) {
+      // Escape key
+      closeAllModals();
+    }
+  });
+}
 
 const main = async () => {
   const user = await fetchLoggedInUser();
@@ -177,6 +269,7 @@ const main = async () => {
     method: "GET",
   });
   posts.forEach(post => addPostToPage(post, user.id));
+  makeModalsWork();
 
   // LIKES BUTTON
   const likes = Array.from(document.getElementsByClassName("likeButton"));
@@ -189,20 +282,20 @@ const main = async () => {
     });
   });
 
-  // COMMENTS SECTION
-  const commentsSection = Array.from(
-    document.getElementsByClassName("commentSection")
-  );
-  commentsSection.forEach(async section => {
-    const post_id = section.getAttribute("data-post-id");
-    const [postComments, _commentErr] = await handleFetch(
-      `/api/posts/${post_id}/comments`,
-      { method: "GET" }
-    );
-    if (postComments.length > 0) {
-      addCommentsToPost(post_id, postComments, section);
-    }
-  });
+  // // COMMENTS SECTION
+  // const commentsSection = Array.from(
+  //   document.getElementsByClassName("commentSection")
+  // );
+  // commentsSection.forEach(async section => {
+  //   const post_id = section.getAttribute("data-post-id");
+  //   const [postComments, _commentErr] = await handleFetch(
+  //     `/api/posts/${post_id}/comments`,
+  //     { method: "GET" }
+  //   );
+  //   if (postComments.length > 0) {
+  //     addCommentsToPost(post_id, postComments, section);
+  //   }
+  // });
 };
 
 main();
