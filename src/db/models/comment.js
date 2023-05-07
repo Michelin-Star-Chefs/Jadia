@@ -54,10 +54,10 @@ class Comment {
   static async listFromPost(post_id) {
     try {
       const query = `
-        SELECT comments.*, username
+        SELECT comments.*, users.id AS user_id, users.username
         FROM comments
         JOIN posts ON comments.post_id = posts.post_id
-        JOIN users ON posts.user_id = users.id
+        JOIN users ON comments.user_id = users.id
         WHERE posts.post_id = ?;`;
       const { rows } = await knex.raw(query, [post_id]);
       return rows;

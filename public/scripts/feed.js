@@ -226,6 +226,23 @@ async function addModalContent(div, post_id) {
       comment.appendChild(username);
       comment.appendChild(br);
       comment.appendChild(content);
+      //append delete link to comment
+      console.log("test", commentObj, user.id, user["id"]);
+      if (commentObj.user_id == user.id) {
+        console.log("the current user", username, " made comment ", content);
+        const deleteLink = document.createElement("a");
+        deleteLink.innerText = "Delete Comment";
+        deleteLink.addEventListener("click", async () => {
+          //delete comment from database
+          await handleFetch(
+            `/api/posts/${post_id}/comments/${commentObj.comment_id}`,
+            { method: "DELETE" }
+          );
+          //remove comment from dom (visulaly)
+          comment.remove();
+        });
+        comment.appendChild(deleteLink);
+      }
       commentsSection.appendChild(comment);
     });
   }
@@ -253,16 +270,18 @@ async function addModalContent(div, post_id) {
   field.appendChild(submitControl);
 
   //submit button event lister -> post request for comment
-  field.addEventListener("submit", async e => {
+  field.addEventListener("submit", async (e) => {
     e.preventDefault();
     const value = e.target[0].value;
     const body = {
-      post_id: post_id,
+      postId: post_id,
       content: value,
+      userId: user.id,
     };
     const options = getFetchOptions(body);
     const url = `/api/posts/${post_id}/comments`;
-    const { responce, err } = await handleFetch(url, options);
+    const { response, err } = await handleFetch(url, options);
+    console.log("created comment res: ", response., "err: ", err);
     e.target[0].value = "";
 
     //add make new comment & add to dom
@@ -277,6 +296,21 @@ async function addModalContent(div, post_id) {
     comment.appendChild(username);
     comment.appendChild(br);
     comment.appendChild(content);
+    if (commentObj.user_id == user.id) {
+      console.log("the current user", username, " made comment ", content);
+      const deleteLink = document.createElement("a");
+      deleteLink.innerText = "Delete Comment";
+      deleteLink.addEventListener("click", async () => {
+        //delete comment from database
+        await handleFetch(
+          `/api/posts/${post_id}/comments/${commentObj.comment_id}`,
+          { method: "DELETE" }
+        );
+        //remove comment from dom (visulaly)
+        comment.remove();
+      });
+      comment.appendChild(deleteLink);
+    }
     commentsSection.appendChild(comment);
   });
 
