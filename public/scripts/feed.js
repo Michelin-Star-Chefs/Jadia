@@ -50,9 +50,7 @@ function createDropdown(mediaNode, post_id, postContainer) {
   dropdownItem1.setAttribute("href", "#");
   dropdownItem1.innerText = "Update";
   dropdownItem1.addEventListener("click", () => {
-    //this WILL ONE DAY make the update work
     //add post id to session
-    console.log(post_id);
     sessionStorage.setItem("post_id", post_id);
     //then redirect to update.html
     window.location.assign("/update.html");
@@ -65,11 +63,9 @@ function createDropdown(mediaNode, post_id, postContainer) {
   dropdownItem2.addEventListener("click", async e => {
     //this makes the delete work
     //do the backened fetch call
-    console.log(post_id);
-    const [ response, err ] = await handleFetch(`/api/delete/${post_id}`, {
+    const [response, err] = await handleFetch(`/api/delete/${post_id}`, {
       method: "DELETE",
     });
-    console.log(response);
     //remove the card from the page
     postContainer.remove();
   });
@@ -227,10 +223,8 @@ async function addModalContent(div, post_id) {
       comment.appendChild(br);
       comment.appendChild(content);
       //append delete link to comment
-      console.log("test", commentObj, user.id, user["id"]);
 
       if (commentObj.user_id == user.id) {
-        console.log("the current user", username, " made comment ", content);
         const deleteLink = document.createElement("a");
         deleteLink.innerText = "Delete Comment";
         deleteLink.addEventListener("click", async () => {
@@ -271,7 +265,7 @@ async function addModalContent(div, post_id) {
   field.appendChild(submitControl);
 
   //submit button event lister -> post request for comment
-  field.addEventListener("submit", async (e) => {
+  field.addEventListener("submit", async e => {
     e.preventDefault();
     const value = e.target[0].value;
     const body = {
@@ -282,9 +276,8 @@ async function addModalContent(div, post_id) {
     const options = getFetchOptions(body);
     const url = `/api/posts/${post_id}/comments`;
     const { response, err } = await handleFetch(url, options);
-    console.log("created comment res: ", response, "err: ", err);
     e.target[0].value = "";
-  
+
     //add make new comment & add to dom
     const comment = document.createElement("div");
     comment.style.display = "flex";
@@ -297,7 +290,7 @@ async function addModalContent(div, post_id) {
     comment.appendChild(username);
     comment.appendChild(br);
     comment.appendChild(content);
-  
+
     // Add delete link to comment as the comment is created by the current user
     const deleteLink = document.createElement("a");
     deleteLink.innerText = "Delete Comment";
@@ -308,14 +301,14 @@ async function addModalContent(div, post_id) {
           `/api/posts/${post_id}/comments/${response.comment_id}`, // Use response.comment_id
           { method: "DELETE" }
         );
-      }      
+      }
       //remove comment from dom (visually)
       comment.remove();
     });
     comment.appendChild(deleteLink);
-    
+
     commentsSection.appendChild(comment);
-  });  
+  });
 
   //appending everything
   div.appendChild(commentsSection);
@@ -392,21 +385,6 @@ const main = async () => {
       likeCount.innerText = likesAmount;
     });
   });
-
-  // // COMMENTS SECTION
-  // const commentsSection = Array.from(
-  //   document.getElementsByClassName("commentSection")
-  // );
-  // commentsSection.forEach(async section => {
-  //   const post_id = section.getAttribute("data-post-id");
-  //   const [postComments, _commentErr] = await handleFetch(
-  //     `/api/posts/${post_id}/comments`,
-  //     { method: "GET" }
-  //   );
-  //   if (postComments.length > 0) {
-  //     addCommentsToPost(post_id, postComments, section);
-  //   }
-  // });
 };
 
 main();

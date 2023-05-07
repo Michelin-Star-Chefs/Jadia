@@ -52,6 +52,19 @@ const updateUsernameHandler = async form => {
   return [response, err];
 };
 
+// UPDATE PROFILE PICTURE
+const updatePFPHandler = async form => {
+  const formData = new FormData(form);
+  const picture = formData.get("picture");
+  if (!picture) return alert("Image Address is required");
+
+  const url = `/api/users/${form.dataset.userId}`;
+  const options = getFetchOptions({ pictureURL: picture });
+  console.log("url + options", url, options);
+  const [response, err] = await handleFetch(url, options);
+  return [response, err];
+};
+
 // DELETE USER
 const logOutHandler = async () => {
   const [_response, err] = await handleFetch("/api/users/logout", {
@@ -82,9 +95,6 @@ const setNav = hasLoggedInUser => {
 
 //get session
 
-
-
-
 // This is wonky. Once you learn about bundlers we won't have to
 // explicitly create globals. We just lack the tools right now.
 Object.assign(window, {
@@ -95,6 +105,7 @@ Object.assign(window, {
   setNav,
   logOutHandler,
   updateUsernameHandler,
+  updatePFPHandler,
 });
 
 export {
@@ -105,4 +116,5 @@ export {
   setNav,
   logOutHandler,
   updateUsernameHandler,
+  updatePFPHandler,
 };
