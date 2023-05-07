@@ -90,8 +90,7 @@ function addPostToPage(postObj, user_id) {
   const figure = document.createElement("figure");
   figure.className = "image is-64x64";
   const profileImage = document.createElement("img");
-  profileImage.src =
-    postObj.profile_photo || "../../public/images/default_image.jpg";
+  profileImage.src = postObj.profile_photo || "/images/default_icon.png";
   figure.appendChild(profileImage);
   mediaLeft.appendChild(figure);
   const mediaContent = document.createElement("div");
@@ -122,22 +121,29 @@ function addPostToPage(postObj, user_id) {
   postFooter.className = "card-footer";
   const likeIcon = document.createElement("a");
   likeIcon.className = "card-footer-item";
+
   const likeImage = document.createElement("img");
   likeImage.className = "likeButton";
-  likeImage.src = "../../public/images/unliked.png";
+  likeImage.src = "/images/unliked.png";
+
   likeImage.setAttribute("data-post-id", postObj.post_id);
   const likeCount = document.createElement("span");
   likeCount.innerText = postObj.likes_count;
   likeCount.setAttribute("data-post-id", postObj.post_id);
   likeIcon.appendChild(likeImage);
   likeIcon.appendChild(likeCount);
+  
   // comments
+  
   const commentIcon = document.createElement("a");
   commentIcon.className = "card-footer-item";
+
   const commentImage = document.createElement("img");
-  commentImage.src = "../../public/images/comment.png";
+  commentImage.src = "/images/commentPic.png";
+
   commentImage.classList.add("js-modal-trigger");
   commentImage.setAttribute("data-target", postObj.post_id);
+  
   // appends
   commentIcon.appendChild(commentImage);
   postFooter.appendChild(likeIcon);

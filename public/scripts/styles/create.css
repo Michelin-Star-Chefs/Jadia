@@ -145,9 +145,10 @@ button[type="submit"] {
 
 button[type="submit"],
 button[type="submit"]:hover {
+  color: white;
   margin-top: 20px;
   background-color: var(--clr-vivid-blue);
-  border: 1px var(--clr-dark-blue) solid;
+  border: 1px var(--clr-vivid-blue) solid;
 }
 
 input[type="text"],
