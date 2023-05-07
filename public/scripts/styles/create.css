@@ -90,12 +90,46 @@ picture {
   white-space: normal;
 }
 
+#main-nav {
+  background-color: var(--clr-light-blue);
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+
+#main-nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+#main-nav li {
+  margin-right: 1rem;
+}
+
+#main-nav a {
+  color: var(--clr-dark-blue);
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+
+#main-nav li:hover a {
+  transform: scale(1.1);
+}
+
 .main-wrapper {
     display: flex;
     justify-content: center;
     align-items: flex-start;
     height: calc(100% - 3.25rem); /* Subtract the navbar height */
-    padding-top: 7rem; /* Add padding to the top */
+    padding-top: 8rem; /* Add padding to the top */
   }
 
 #sign-up {
@@ -109,16 +143,17 @@ button[type="submit"] {
   margin-right: auto;
 }
 
-button[type="submit"] {
+button[type="submit"],
+button[type="submit"]:hover {
   margin-top: 20px;
   background-color: var(--clr-vivid-blue);
-  border: 1px black solid;
+  border: 1px var(--clr-dark-blue) solid;
 }
 
 input[type="text"],
 input[type="password"] {
   background-color: var(--clr-dark-blue);
-  border: 1px black solid;
+  border: 1px var(--clr-dark-blue) solid;
 }
 
 #sign-up-btn {
@@ -131,4 +166,7 @@ input[type="password"]::placeholder {
   color: white;
 }
 
+#login-text {
+  color: var(--clr-dark-blue);
+}
   
