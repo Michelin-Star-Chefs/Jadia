@@ -5,6 +5,9 @@ import {
   setNav,
 } from "./global.js";
 
+const user = await fetchLoggedInUser();
+console.log(user);
+
 const redirectToLogin = () => window.location.assign("/login.html");
 
 function createDropdown(mediaNode, post_id, postContainer) {
@@ -164,15 +167,6 @@ const addLikeFunctionality = async post_id => {
   return _response.likes_count;
 };
 
-// //make a function given an array of objs, add all the objs to to the page
-// const addCommentsToPost = async (post_id, postComments, commentsSection) => {
-//   postComments.forEach(comment => {
-//     const commentElement = document.createElement("p");
-//     commentElement.innerText = comment.content;
-//     commentsSection.appendChild(commentElement);
-//   });
-// };
-
 function addCommentModalHTML(post_id) {
   // Create the modal container
   const modalContainer = document.createElement("div");
@@ -192,12 +186,10 @@ function addCommentModalHTML(post_id) {
   // Create the box element
   const box = document.createElement("div");
   box.setAttribute("class", "box");
-  modalContent.appendChild(box);
 
-  // Add content to the box
-  const content = document.createElement("p");
-  content.textContent = "Modal JS example";
-  box.appendChild(content);
+  // Add content
+  addModalContent(box, post_id);
+  modalContent.appendChild(box);
 
   // Create the close button
   const closeButton = document.createElement("button");
@@ -207,6 +199,90 @@ function addCommentModalHTML(post_id) {
 
   // Add the modal to the document body
   document.body.appendChild(modalContainer);
+}
+
+async function getComments(post_id) {
+  const [postComments, _commentErr] = await handleFetch(
+    `/api/posts/${post_id}/comments`,
+    { method: "GET" }
+  );
+  return postComments;
+}
+
+async function addModalContent(div, post_id) {
+  //container that lists comments
+  const commentsSection = document.createElement("section");
+  let postComments = await getComments(post_id);
+  if (postComments) {
+    postComments.forEach(commentObj => {
+      const comment = document.createElement("div");
+      comment.style.display = "flex";
+      const username = document.createElement("p");
+      username.innerText = commentObj.username;
+      const content = document.createElement("p");
+      content.innerText = commentObj.content;
+      const br = document.createElement("p");
+      br.innerText = ":   :";
+      comment.appendChild(username);
+      comment.appendChild(br);
+      comment.appendChild(content);
+      commentsSection.appendChild(comment);
+    });
+  }
+  //form creation
+  const field = document.createElement("form");
+  field.className = "field is-grouped";
+  const commentControl = document.createElement("p");
+  commentControl.className = "control is-expanded";
+  const commentInput = document.createElement("input");
+  commentInput.name = "comment";
+  commentInput.className = "input";
+  commentInput.type = "text";
+  commentInput.placeholder = "Add Comment";
+  const submitControl = document.createElement("p");
+  submitControl.className = "control";
+  const submitButton = document.createElement("button");
+  submitButton.type = "Submit";
+  submitButton.className = "button is-info";
+  submitButton.innerText = "Send";
+
+  //appending form together
+  commentControl.appendChild(commentInput);
+  submitControl.appendChild(submitButton);
+  field.appendChild(commentControl);
+  field.appendChild(submitControl);
+
+  //submit button event lister -> post request for comment
+  field.addEventListener("submit", async e => {
+    e.preventDefault();
+    const value = e.target[0].value;
+    const body = {
+      post_id: post_id,
+      content: value,
+    };
+    const options = getFetchOptions(body);
+    const url = `/api/posts/${post_id}/comments`;
+    const { responce, err } = await handleFetch(url, options);
+    e.target[0].value = "";
+
+    //add make new comment & add to dom
+    const comment = document.createElement("div");
+    comment.style.display = "flex";
+    const username = document.createElement("p");
+    username.innerText = user.username;
+    const content = document.createElement("p");
+    content.innerText = value;
+    const br = document.createElement("p");
+    br.innerText = ":   :";
+    comment.appendChild(username);
+    comment.appendChild(br);
+    comment.appendChild(content);
+    commentsSection.appendChild(comment);
+  });
+
+  //appending everything
+  div.appendChild(commentsSection);
+  div.appendChild(field);
 }
 
 function makeModalsWork() {
@@ -260,8 +336,6 @@ function makeModalsWork() {
 }
 
 const main = async () => {
-  const user = await fetchLoggedInUser();
-  console.log(user);
   if (!user) return redirectToLogin();
   setNav(!!user);
 
