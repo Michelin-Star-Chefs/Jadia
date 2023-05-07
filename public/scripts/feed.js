@@ -49,8 +49,10 @@ function createDropdown(mediaNode, post_id, postContainer) {
   dropdownItem1.addEventListener("click", () => {
     //this WILL ONE DAY make the update work
     //add post id to session
-    session.updatePost_id = post_id;
+    console.log(post_id);
+    sessionStorage.setItem("post_id", post_id);
     //then redirect to update.html
+    window.location.assign("/update.html");
   });
 
   const dropdownItem2 = document.createElement("a");

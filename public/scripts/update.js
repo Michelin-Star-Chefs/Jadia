@@ -17,20 +17,20 @@ const makeInputObj = arr => {
 
 //post_id -> handle fetch
 const dataPush = async obj => {
-  console.log(obj);
   const user = await fetchLoggedInUser();
+  console.log(user.id);
   obj.user_id = user.id;
   const options = getFetchOptions(obj, "PATCH");
-  console.log(options);
-  // should be hitting a route with dynamic value
+  const post_id = sessionStorage.getItem("post_id");
   const [_response, err] = await handleFetch(`/api/update/${post_id}`, options);
-  console.log(_response, err);
+  window.location.assign("/feed.html");
 };
 
 const main = async () => {
   const user = await fetchLoggedInUser();
   setNav(!!user);
-
+  const post_id = sessionStorage.getItem("post_id");
+  console.log("post id: ", post_id);
   const updatePostForm = document.querySelector("#update-post-form");
   updatePostForm.addEventListener("submit", e => {
     e.preventDefault();
@@ -39,6 +39,7 @@ const main = async () => {
       .map(child => child.value);
     const obj = makeInputObj(inputs);
     dataPush(obj);
+    // window.location.assign("/feed.html");
   });
 };
 

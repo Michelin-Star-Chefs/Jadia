@@ -6,6 +6,7 @@ const updatePost = async (req, res) => {
     session,
     db: { Post },
     params: { id },
+    body,
   } = req;
 
   // if (!isAuthorized(id, session)) return res.sendStatus(403);
@@ -21,13 +22,14 @@ const updatePost = async (req, res) => {
 
   const find = post.rows[0];
   if (!find) return res.sendStatus(404);
-
-  const newObj = { //THIS NEW OBJ WILL BE THE NEW FORM 
-    location: "funtime",
-    end_date: "1999-01-02",
-    description: "some bullshit",
-  };
-  const result = await Post.updatePost(Number(id), find, newObj);
+  const updatedValues = Object.entries(body).reduce((acc, [key, value]) => {
+    if (value !== "") {
+      acc[key] = value;
+    }
+    return acc;
+  }, {});
+  console.log("find", find, "updated", updatedValues);
+  const result = await Post.updatePost(Number(id), find, updatedValues);
   res.sendStatus(result ? 204 : 404);
 };
 

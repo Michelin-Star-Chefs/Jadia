@@ -73,18 +73,18 @@ class Post {
   //update
   static async updatePost(post_id, currObj, newObj) {
     // the array of inputs is going to be the new obj || the old obj
-    const input = {};
-    for (let key in currObj) {
-      if (key in newObj) {
-        input[key] = newObj[key];
-      } else {
-        input[key] = currObj[key];
+    try {
+      const input = {};
+      for (let key in currObj) {
+        if (key in newObj) {
+          input[key] = newObj[key];
+        } else {
+          input[key] = currObj[key];
+        }
       }
-    }
-    console.log(input);
-    // make a query that updates all the values at the post id
-    const result = await knex.raw(
-      `
+      // make a query that updates all the values at the post id
+      const result = await knex.raw(
+        `
       UPDATE posts
       SET
         location = ?,
@@ -93,16 +93,23 @@ class Post {
         photo = ?,
         description = ?
       WHERE post_id = ?
+      RETURNING *;
     `,
-      [
-        input.location,
-        input.start_date,
-        input.end_date,
-        input.photo,
-        input.description,
-        post_id,
-      ]
-    );
+        [
+          input.location,
+          input.start_date,
+          input.end_date,
+          input.photo,
+          input.description,
+          post_id,
+        ]
+      );
+      console.log(result.rows[0]);
+      return result ? result.rows[0] : null;
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
   }
   //delete
   static async deletePost(post_id) {
