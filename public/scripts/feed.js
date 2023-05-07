@@ -66,10 +66,10 @@ function createDropdown(mediaNode, post_id, postContainer) {
     //this makes the delete work
     //do the backened fetch call
     console.log(post_id);
-    const { responce, err } = await handleFetch(`/api/delete/${post_id}`, {
+    const [ response, err ] = await handleFetch(`/api/delete/${post_id}`, {
       method: "DELETE",
     });
-    console.log(responce);
+    console.log(response);
     //remove the card from the page
     postContainer.remove();
   });
@@ -228,6 +228,7 @@ async function addModalContent(div, post_id) {
       comment.appendChild(content);
       //append delete link to comment
       console.log("test", commentObj, user.id, user["id"]);
+
       if (commentObj.user_id == user.id) {
         console.log("the current user", username, " made comment ", content);
         const deleteLink = document.createElement("a");
@@ -281,9 +282,9 @@ async function addModalContent(div, post_id) {
     const options = getFetchOptions(body);
     const url = `/api/posts/${post_id}/comments`;
     const { response, err } = await handleFetch(url, options);
-    console.log("created comment res: ", response., "err: ", err);
+    console.log("created comment res: ", response, "err: ", err);
     e.target[0].value = "";
-
+  
     //add make new comment & add to dom
     const comment = document.createElement("div");
     comment.style.display = "flex";
@@ -296,23 +297,25 @@ async function addModalContent(div, post_id) {
     comment.appendChild(username);
     comment.appendChild(br);
     comment.appendChild(content);
-    if (commentObj.user_id == user.id) {
-      console.log("the current user", username, " made comment ", content);
-      const deleteLink = document.createElement("a");
-      deleteLink.innerText = "Delete Comment";
-      deleteLink.addEventListener("click", async () => {
-        //delete comment from database
+  
+    // Add delete link to comment as the comment is created by the current user
+    const deleteLink = document.createElement("a");
+    deleteLink.innerText = "Delete Comment";
+    deleteLink.addEventListener("click", async () => {
+      //delete comment from database
+      if (response && response.comment_id) {
         await handleFetch(
-          `/api/posts/${post_id}/comments/${commentObj.comment_id}`,
+          `/api/posts/${post_id}/comments/${response.comment_id}`, // Use response.comment_id
           { method: "DELETE" }
         );
-        //remove comment from dom (visulaly)
-        comment.remove();
-      });
-      comment.appendChild(deleteLink);
-    }
+      }      
+      //remove comment from dom (visually)
+      comment.remove();
+    });
+    comment.appendChild(deleteLink);
+    
     commentsSection.appendChild(comment);
-  });
+  });  
 
   //appending everything
   div.appendChild(commentsSection);
