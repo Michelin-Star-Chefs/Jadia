@@ -13,11 +13,26 @@
     <main>
       <h1 id="username"></h1>
 
-      <p id="rename">Update Username</p>
       <form id="username-form" aria-labelledby="rename">
         <label for="username">Username:</label>
-        <input type="text" name="username" id="username-input" />
+        <input
+          type="text"
+          name="username"
+          id="username-input"
+          placeholder="New Username"
+        />
         <button type="submit">Update Username</button>
+      </form>
+
+      <form id="profile-picture-form" aria-labelledby="pfp">
+        <label for="picture">Profile Picture:</label>
+        <input
+          type="url"
+          name="picture"
+          id="pfp-input"
+          placeholder="New Image Address"
+        />
+        <button type="submit">Update Profile Picture</button>
       </form>
 
       <hr />

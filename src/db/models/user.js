@@ -71,6 +71,41 @@ class User {
     }
   }
 
+  static async insertPFP(user_id, url) {
+    try {
+      const insertion = await knex.raw(
+        `
+      INSERT INTO profile_pictures (user_id, image_url)
+      VALUES (?,?)
+      RETURNING *;
+      `,
+        [user_id, url]
+      );
+      return insertion.rows[0];
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  }
+
+  static async replacePFP(user_id, url) {
+    try {
+      const replacement = await knex.raw(
+        `
+          UPDATE profile_pictures
+          SET image_url = ?
+          WHERE user_id = ?
+          RETURNING *;
+      `,
+        [url, user_id]
+      );
+      return replacement.rows[0];
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  }
+
   update = async username => {
     // dynamic queries are easier if you add more properties
     try {
