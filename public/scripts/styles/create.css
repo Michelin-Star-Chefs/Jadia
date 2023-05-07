@@ -1,0 +1,129 @@
+:root {
+  --clr-dark-blue: #14434a;
+  --clr-vivid-blue: #60cfe0;
+  --clr-light-blue: #97c1c7;
+  --clr-grey-blue: #708f94;
+  --ff-primary: "Lato", sans-serif;
+
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-bold: 700;
+  --fw-black: 900;
+  --fs-xs: 20px;
+  --fs-s: 25px;
+  --fs-m: 38px;
+  --fs-l: 60px;
+  --fs-xl: 90px;
+}
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Set core body defaults */
+body {
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  font-family: var(--ff-primary);
+  background-color: var(--clr-light-blue);
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+svg,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.prevent-overflow {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+.main-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: calc(100% - 3.25rem); /* Subtract the navbar height */
+    padding-top: 7rem; /* Add padding to the top */
+  }
+
+#sign-up {
+  font-size: var(--fs-l);
+}
+
+.input-wrapper,
+button[type="submit"] {
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+button[type="submit"] {
+  margin-top: 20px;
+  background-color: var(--clr-vivid-blue);
+  border: 1px black solid;
+}
+
+input[type="text"],
+input[type="password"] {
+  background-color: var(--clr-dark-blue);
+  border: 1px black solid;
+}
+
+#sign-up-btn {
+  color: var(--clr-dark-blue);
+  background-color: #60cfe0;
+}
+
+  
