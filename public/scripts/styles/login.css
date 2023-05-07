@@ -143,16 +143,22 @@ button[type="submit"] {
   margin-right: auto;
 }
 
+button[type="submit"]:hover {
+  color: white;
+}
+
+
 button[type="submit"] {
   margin-top: 20px;
   background-color: var(--clr-vivid-blue);
-  border: 1px black solid;
+  border: 1px var(--clr-vivid-blue) solid;
+  color: white;
 }
 
 input[type="text"],
 input[type="password"] {
   background-color: var(--clr-grey-blue);
-  border: 1px black solid;
+  border: 1px var(--clr-grey-blue) solid;
 }
 
 input[type="text"]::placeholder,
@@ -161,7 +167,6 @@ input[type="password"]::placeholder {
   opacity: 0.6;
 }
 
-#sign-up-btn {
-  color: var(--clr-dark-blue);
-  background-color: #60cfe0;
+#sign-up-text a:hover {
+  color: white;
 }
