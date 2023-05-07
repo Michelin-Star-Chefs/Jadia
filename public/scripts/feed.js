@@ -7,7 +7,75 @@ import {
 
 const redirectToLogin = () => window.location.assign("/login.html");
 
-function addPostToPage(postObj) {
+function createDropdown(mediaNode, post_id, postContainer) {
+  const dropdown = document.createElement("div");
+  dropdown.classList.add("dropdown", "is-active");
+
+  const dropdownTrigger = document.createElement("div");
+  dropdownTrigger.classList.add("dropdown-trigger");
+
+  const dropdownButton = document.createElement("button");
+  dropdownButton.classList.add("button");
+  dropdownButton.setAttribute("aria-haspopup", "true");
+  dropdownButton.setAttribute("aria-controls", "dropdown-menu");
+
+  const dropdownButtonLabel = document.createElement("span");
+  dropdownButtonLabel.innerText = "...";
+  dropdownButton.appendChild(dropdownButtonLabel);
+
+  const dropdownIcon = document.createElement("span");
+  dropdownIcon.classList.add("icon", "is-small");
+  const dropdownIconImage = document.createElement("i");
+  dropdownIconImage.classList.add("fas", "fa-angle-down");
+
+  dropdownIcon.appendChild(dropdownIconImage);
+  dropdownButton.appendChild(dropdownIcon);
+
+  dropdownTrigger.appendChild(dropdownButton);
+  dropdown.appendChild(dropdownTrigger);
+
+  const dropdownMenu = document.createElement("div");
+  dropdownMenu.classList.add("dropdown-menu");
+  dropdownMenu.setAttribute("id", "dropdown-menu");
+  dropdownMenu.setAttribute("role", "menu");
+
+  const dropdownContent = document.createElement("div");
+  dropdownContent.classList.add("dropdown-content");
+
+  const dropdownItem1 = document.createElement("a");
+  dropdownItem1.classList.add("dropdown-item");
+  dropdownItem1.setAttribute("href", "#");
+  dropdownItem1.innerText = "Update";
+  dropdownItem1.addEventListener("click", () => {
+    //add post id to session
+    session.updatePost_id = post_id;
+    //then redirect to update.html
+  });
+
+  const dropdownItem2 = document.createElement("a");
+  dropdownItem2.classList.add("dropdown-item");
+  dropdownItem2.setAttribute("href", "#");
+  dropdownItem2.innerText = "Delete";
+  dropdownItem2.addEventListener("click", async e => {
+    //do the backened fetch call
+    console.log(post_id);
+    const { responce, err } = await handleFetch(`/api/delete/${post_id}`, {
+      method: "DELETE",
+    });
+    console.log(responce);
+    //remove the card from the page
+    postContainer.remove();
+  });
+
+  dropdownContent.appendChild(dropdownItem1);
+  dropdownContent.appendChild(dropdownItem2);
+
+  dropdownMenu.appendChild(dropdownContent);
+  dropdown.appendChild(dropdownMenu);
+  mediaNode.appendChild(dropdown);
+}
+
+function addPostToPage(postObj, user_id) {
   const container = document.createElement("div");
   container.className = "card post";
   const cardContent = document.createElement("div");
@@ -20,8 +88,7 @@ function addPostToPage(postObj) {
   figure.className = "image is-64x64";
   const profileImage = document.createElement("img");
   profileImage.src =
-    postObj.profile_photo ||
-    "../../public/images/default_image.jpg";
+    postObj.profile_photo || "../../public/images/default_image.jpg";
   figure.appendChild(profileImage);
   mediaLeft.appendChild(figure);
   const mediaContent = document.createElement("div");
@@ -36,6 +103,9 @@ function addPostToPage(postObj) {
   mediaContent.appendChild(location);
   media.appendChild(mediaLeft);
   media.appendChild(mediaContent);
+  if (postObj.post_id == user_id) {
+    createDropdown(media, postObj.post_id, container);
+  }
   const postImage = document.createElement("img");
   postImage.src =
     postObj.photo ||
@@ -94,13 +164,14 @@ const addCommentsToPost = async (post_id, postComments, commentsSection) => {
 
 const main = async () => {
   const user = await fetchLoggedInUser();
+  console.log(user);
   if (!user) return redirectToLogin();
   setNav(!!user);
 
   const [posts, _postErr] = await handleFetch("/api/list", {
     method: "GET",
   });
-  posts.forEach(post => addPostToPage(post));
+  posts.forEach(post => addPostToPage(post, user.id));
 
   // LIKES BUTTON
   const likes = Array.from(document.getElementsByClassName("likeButton"));

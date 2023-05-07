@@ -76,5 +76,3 @@ Router.get("/posts/:post_id/comments", commentsController.listFromPost);
 Router.delete("/posts/:post_id/comments/:id", commentsController.deleteComment);
 
 module.exports = Router;
-
-

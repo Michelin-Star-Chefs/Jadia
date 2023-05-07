@@ -46,9 +46,10 @@ class Post {
   //list
   static async listAll() {
     try {
-      const query = "SELECT posts.*, username FROM posts JOIN users ON posts.user_id = users.id";
+      const query =
+        "SELECT posts.*, username FROM posts JOIN users ON posts.user_id = users.id";
       const { rows } = await knex.raw(query);
-      return rows
+      return rows;
       // return rows.map(post => new Post(post));
     } catch (err) {
       console.error(err);
@@ -110,6 +111,14 @@ class Post {
         `
       DELETE
       FROM likes
+      WHERE post_id = ?;
+      `,
+        [post_id]
+      );
+      await knex.raw(
+        `
+      DELETE
+      FROM comments
       WHERE post_id = ?;
       `,
         [post_id]

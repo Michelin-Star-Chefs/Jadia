@@ -80,6 +80,11 @@ const setNav = hasLoggedInUser => {
   document.querySelector("nav").innerHTML = navHtml;
 };
 
+//get session
+
+
+
+
 // This is wonky. Once you learn about bundlers we won't have to
 // explicitly create globals. We just lack the tools right now.
 Object.assign(window, {
