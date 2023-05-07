@@ -105,7 +105,7 @@ function addPostToPage(postObj, user_id) {
   mediaContent.appendChild(location);
   media.appendChild(mediaLeft);
   media.appendChild(mediaContent);
-  if (postObj.post_id == user_id) {
+  if (postObj.user_id == user_id) {
     //adds editing options for posts made by the logged in user
     createDropdown(media, postObj.post_id, container); //only relies of the media & container divs atm
   }
