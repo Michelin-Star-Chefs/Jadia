@@ -47,6 +47,7 @@ function createDropdown(mediaNode, post_id, postContainer) {
   dropdownItem1.setAttribute("href", "#");
   dropdownItem1.innerText = "Update";
   dropdownItem1.addEventListener("click", () => {
+    //this WILL ONE DAY make the update work
     //add post id to session
     session.updatePost_id = post_id;
     //then redirect to update.html
@@ -57,6 +58,7 @@ function createDropdown(mediaNode, post_id, postContainer) {
   dropdownItem2.setAttribute("href", "#");
   dropdownItem2.innerText = "Delete";
   dropdownItem2.addEventListener("click", async e => {
+    //this makes the delete work
     //do the backened fetch call
     console.log(post_id);
     const { responce, err } = await handleFetch(`/api/delete/${post_id}`, {
@@ -67,8 +69,8 @@ function createDropdown(mediaNode, post_id, postContainer) {
     postContainer.remove();
   });
 
-  dropdownContent.appendChild(dropdownItem1);
-  dropdownContent.appendChild(dropdownItem2);
+  dropdownContent.appendChild(dropdownItem1); //matters
+  dropdownContent.appendChild(dropdownItem2); //matters
 
   dropdownMenu.appendChild(dropdownContent);
   dropdown.appendChild(dropdownMenu);
@@ -104,7 +106,8 @@ function addPostToPage(postObj, user_id) {
   media.appendChild(mediaLeft);
   media.appendChild(mediaContent);
   if (postObj.post_id == user_id) {
-    createDropdown(media, postObj.post_id, container);
+    //adds editing options for posts made by the logged in user
+    createDropdown(media, postObj.post_id, container); //only relies of the media & container divs atm
   }
   const postImage = document.createElement("img");
   postImage.src =
