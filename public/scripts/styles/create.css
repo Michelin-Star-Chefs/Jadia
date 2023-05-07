@@ -126,4 +126,9 @@ input[type="password"] {
   background-color: #60cfe0;
 }
 
+input[type="text"]::placeholder,
+input[type="password"]::placeholder {
+  color: white;
+}
+
   
