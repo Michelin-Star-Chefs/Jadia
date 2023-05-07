@@ -50,6 +50,7 @@ Router.post("/post", postController.create);
 // Read
 Router.get("/list", postController.listAll);
 Router.get("/list/:id", postController.listFromUser);
+Router.get("/pfp/:id", postController.getPFP)
 
 // Update
 Router.patch("/update/:id", postController.updatePost);

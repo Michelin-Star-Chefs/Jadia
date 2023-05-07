@@ -70,6 +70,24 @@ class Post {
       return null;
     }
   }
+  static async getPFP(post_id) {
+    try {
+      const result = await knex.raw(
+        `
+        SELECT profile_pictures.*
+        FROM profile_pictures
+        JOIN posts ON posts.user_id = profile_pictures.user_id
+        WHERE post_id = ?;
+      `,
+        [post_id]
+      );
+      return result.rows[0];
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  }
+
   //update
   static async updatePost(post_id, currObj, newObj) {
     // the array of inputs is going to be the new obj || the old obj
