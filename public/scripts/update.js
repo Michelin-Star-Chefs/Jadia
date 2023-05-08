@@ -16,8 +16,11 @@ const makeInputObj = arr => {
 };
 
 const addPrevPostToPage = async post_id => {
-  //fetch the post with post id
+  //fetch the posts with post id and the pfps
   const [postObj, err] = await handleFetch(`/api/post/${post_id}`, {
+    method: "GET",
+  });
+  const [pfps, _pfpErr] = await handleFetch("api/pfp/list", {
     method: "GET",
   });
   //add it to the page
@@ -29,12 +32,22 @@ const addPrevPostToPage = async post_id => {
   media.className = "media";
   const mediaLeft = document.createElement("div");
   mediaLeft.className = "media-left";
+
+  //profile image
   const figure = document.createElement("figure");
-  figure.className = "image is-64x64";
+  figure.className = "image is-64x64 pfp";
   const profileImage = document.createElement("img");
-  profileImage.src = postObj.profile_photo || "/images/default_icon.png";
+  profileImage.className = "pfp is-rounded";
+  //profile image logic
+  let link = pfps.find(obj => obj.user_id == postObj.user_id);
+  if (link) {
+    profileImage.src = link.image_url;
+  } else {
+    profileImage.src = "/images/default_icon.png";
+  }
   figure.appendChild(profileImage);
   mediaLeft.appendChild(figure);
+
   const mediaContent = document.createElement("div");
   mediaContent.className = "media-content";
   const username = document.createElement("p");
