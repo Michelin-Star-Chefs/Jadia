@@ -22,6 +22,10 @@ body {
   font-family: var(--ff-primary);
   background-color: var(--clr-light-blue);
   color: var(--clr-dark-blue);
+  min-height: 100vh; /* Updated from height: 100vh */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 main {
@@ -30,6 +34,40 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-around;
+}
+
+#main-nav {
+  background-color: var(--clr-light-blue);
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  padding-top: 15px;
+}
+
+#main-nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+#main-nav li {
+  margin-right: 1rem;
+}
+
+#main-nav a {
+  color: var(--clr-dark-blue);
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+
+#main-nav li:hover a {
+  transform: scale(1.1);
 }
 
 #prev-post-section {
@@ -109,3 +147,17 @@ main {
 .likeButton {
   margin-right: 8px;
 }
+
+input[type="submit"] {
+  background-color: var(--clr-vivid-blue);
+  color: white;
+}
+
+.centered-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+

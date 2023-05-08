@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="./scripts/styles/update.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <script type="module" src="./scripts/update.js"></script>
     <link
       rel="stylesheet"
@@ -17,42 +18,74 @@
     />
   </head>
   <body>
+
     <nav id="main-nav"></nav>
-    <main>
-      <section id="prev-post-section"></section>
-      <form id="update-post-form">
-        <label for="location-input">Where did you go?</label>
-        <input
-          type="text"
-          name="location-input"
-          id="location-input"
-          placeholder="Trip Location"
-        />
-        <br />
-        <label for="start-input">Start Date</label>
-        <input type="date" name="start-input" id="start-input" />
-        <br />
-        <label for="end-input">End Date</label>
-        <input type="date" name="end-input" id="end-input" />
-        <br />
-        <label for="description-input">Description</label>
-        <input
-          type="text"
-          name="description-input"
-          id="description-input"
-          placeholder="Trip Description"
-        />
-        <br />
-        <label for="image-input">Image Url</label>
-        <input
-          type="url"
-          name="image-input"
-          id="image-input"
-          placeholder="enter a valid url"
-        />
-        <br />
-        <input type="submit" value="Update Post" />
-      </form>
+
+    <main class="section centered-content">
+      <div class="container">
+        <div class="columns is-multiline">
+          <div class="column is-full-tablet is-half-desktop">
+            <section id="prev-post-section" class="box"></section>
+          </div>
+          <div class="column is-full-tablet is-half-desktop">
+            <form id="update-post-form" class="box">
+              <div class="field">
+                <label class="label" for="location-input">Where did you go?</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    name="location-input"
+                    id="location-input"
+                    placeholder="Trip Location"
+                  />
+                </div>
+              </div>
+              <div class="field">
+                <label class="label" for="start-input">Start Date</label>
+                <div class="control">
+                  <input class="input" type="date" name="start-input" id="start-input" />
+                </div>
+              </div>
+              <div class="field">
+                <label class="label" for="end-input">End Date</label>
+                <div class="control">
+                  <input class="input" type="date" name="end-input" id="end-input" />
+                </div>
+              </div>
+              <div class="field">
+                <label class="label" for="description-input">Description</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    name="description-input"
+                    id="description-input"
+                    placeholder="Trip Description"
+                  />
+                </div>
+              </div>
+              <div class="field">
+                <label class="label" for="image-input">Image Url</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="url"
+                    name="image-input"
+                    id="image-input"
+                    placeholder="enter a valid url"
+                  />
+                </div>
+              </div>
+              <div class="field">
+                <div class="control">
+                  <input class="button" type="submit" value="Update Post" />
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </main>
   </body>
 </html>
