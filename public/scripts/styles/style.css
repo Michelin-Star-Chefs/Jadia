@@ -51,6 +51,7 @@ body {
   text-rendering: optimizeSpeed;
   line-height: 1.5;
   font-family: var(--ff-primary);
+  background-color: var(--clr-dark-blue);
 }
 
 /* A elements that don't have a class get default styles */
@@ -118,7 +119,56 @@ picture {
   transition: transform 0.3s ease;
 }
 
-
 #main-nav li:hover a {
   transform: scale(1.1);
+}
+
+main {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100% - 66px);
+}
+
+form {
+  max-width: 450px;
+  padding: 2rem;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  flex: 1;
+}
+
+
+label {
+  font-size: var(--fs-s);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+input[type='text'],
+input[type='date'],
+input[type='url'] {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--clr-light-blue);
+}
+
+input[type='submit'] {
+  width: 100%;
+  background-color: var(--clr-vivid-blue);
+  color: white;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: none;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+input[type='submit']:hover {
+  background-color: var(--clr-grey-blue);
 }
