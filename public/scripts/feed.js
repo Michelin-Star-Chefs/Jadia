@@ -71,10 +71,10 @@ function addPostToPage(postObj, user_id, pfps) {
   const mediaContent = document.createElement("div");
   mediaContent.className = "media-content";
   const username = document.createElement("p");
-  username.className = "subtitle is-6";
+  username.className = "subtitle";
   username.innerText = postObj.username;
   const location = document.createElement("p");
-  location.className = "subtitle is-6";
+  location.className = "subtitle";
   location.innerText = postObj.location;
   mediaContent.appendChild(username);
   mediaContent.appendChild(location);

@@ -29,6 +29,50 @@ main {
   margin: 0 auto;
 }
 
+footer {
+  height: 3rem;
+}
+
+#main-nav {
+  background-color: var(--clr-light-blue);
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+#main-nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+#main-nav li {
+  margin-right: 1rem;
+}
+
+#main-nav a {
+  color: var(--clr-dark-blue);
+  text-decoration: none;
+  padding: 0.5rem 0.5rem;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+#main-nav li:hover a {
+  transform: scale(1.1);
+}
+
+.main-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: calc(100% - 3.25rem); /* Subtract the navbar height */
+  padding-top: 8rem; /* Add padding to the top */
+}
+
 .post {
   margin-bottom: 1.5rem;
 }
@@ -102,5 +146,5 @@ main {
   height: 150px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
 }
