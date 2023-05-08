@@ -26,7 +26,7 @@ Router.get("/cookieCounter", (req, res) => {
 // Create
 Router.post("/users", userController.create);
 Router.post("/users/login", userController.login);
-Router.post("/users/:user_id", userController.changePFP)
+Router.post("/users/:user_id", userController.changePFP);
 // Read
 Router.get("/users", userController.list);
 Router.get("/users/:id", userController.show);
@@ -48,9 +48,10 @@ Router.delete("/users/logout", userController.logout);
 Router.post("/post", postController.create);
 
 // Read
+Router.get("/post/:id", postController.find);
 Router.get("/list", postController.listAll);
 Router.get("/list/:id", postController.listFromUser);
-Router.get("/pfp/:id", postController.getPFP)
+Router.get("/pfp/:id", postController.getPFP);
 
 // Update
 Router.patch("/update/:id", postController.updatePost);

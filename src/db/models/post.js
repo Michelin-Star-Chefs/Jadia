@@ -44,6 +44,24 @@ class Post {
     }
   }
   //list
+  static async find(post_id) {
+    try {
+      const post = await knex.raw(
+        `
+          SELECT *, users.username
+          FROM posts
+          JOIN users ON posts.user_id = users.id
+          WHERE post_id = ?;
+        `,
+        [post_id]
+      );
+      return post.rows[0];
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  }
+
   static async listAll() {
     try {
       const query =

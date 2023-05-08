@@ -4,6 +4,7 @@ const listFromUser = require("./listFromUser");
 const updatePost = require("./updatePost");
 const deletePost = require("./deletePost");
 const getPFP = require("./getPFP");
+const find = require("./find")
 
 module.exports = {
   create,
@@ -12,4 +13,5 @@ module.exports = {
   updatePost,
   deletePost,
   getPFP,
+  find
 };
