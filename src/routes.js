@@ -34,7 +34,8 @@ Router.get("/me", userController.showMe);
 Router.get("/logged-in-secret", checkAuthentication, (req, res) => {
   res.send({ msg: "The secret is: there is no secret." });
 });
-
+Router.get("/users/pfp/:id", userController.getPFP);
+Router.get("/pfp/list", userController.listPFPs)
 // Update
 Router.patch("/users/:id", checkAuthentication, userController.update);
 

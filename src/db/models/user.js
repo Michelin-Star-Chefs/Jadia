@@ -71,6 +71,38 @@ class User {
     }
   }
 
+  static async getPFP(user_id) {
+    try {
+      const result = await knex.raw(
+        `
+        SELECT *
+        FROM profile_pictures
+        WHERE user_id = ?;
+      `,
+        [user_id]
+      );
+      return result.rows[0];
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  }
+
+  static async listPFPs() {
+    try {
+      const result = await knex.raw(
+        `
+        SELECT *
+        FROM profile_pictures
+      `
+      );
+      return result.rows;
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  }
+
   static async insertPFP(user_id, url) {
     try {
       const insertion = await knex.raw(

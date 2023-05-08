@@ -5,6 +5,9 @@ import {
   setNav,
 } from "./global.js";
 
+const user = await fetchLoggedInUser();
+console.log(user);
+
 const makeInputObj = arr => {
   return {
     location: arr[0],
@@ -16,7 +19,6 @@ const makeInputObj = arr => {
 };
 
 const dataPush = async obj => {
-  const user = await fetchLoggedInUser();
   obj.user_id = user.id;
   const options = getFetchOptions(obj);
   const [_response, err] = await handleFetch("/api/post", options);
@@ -26,7 +28,6 @@ const dataPush = async obj => {
 const goToFeed = () => window.location.assign("/feed.html");
 
 const main = async () => {
-  const user = await fetchLoggedInUser();
   setNav(!!user);
 
   const newPostForm = document.querySelector("#new-post-form");

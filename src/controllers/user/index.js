@@ -6,6 +6,8 @@ const changePFP = require("./changePFP");
 const login = require("./login");
 const logout = require("./logout");
 const showMe = require("./show-me");
+const getPFP = require("./getPFP");
+const listPFPs = require("./listPFPs");
 
 module.exports = {
   list,
@@ -16,4 +18,6 @@ module.exports = {
   login,
   logout,
   showMe,
+  getPFP,
+  listPFPs,
 };
