@@ -16,76 +16,50 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
+    <style>
+      main {
+        padding-top: 3.25rem; /* Adding padding to main to prevent content from being hidden behind the fixed navbar */
+      }
+    </style>
   </head>
   <body>
+    <nav id="main-nav" class="navbar is-fixed-top" role="navigation" aria-label="main navigation"></nav> <!-- Added is-fixed-top class -->
 
-    <nav id="main-nav"></nav>
-
-    <main class="section centered-content">
-      <div class="container">
-        <div class="columns is-multiline">
-          <div class="column is-full-tablet is-half-desktop">
-            <section id="prev-post-section" class="box"></section>
-          </div>
-          <div class="column is-full-tablet is-half-desktop">
-            <form id="update-post-form" class="box">
-              <div class="field">
-                <label class="label" for="location-input">Where did you go?</label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="text"
-                    name="location-input"
-                    id="location-input"
-                    placeholder="Trip Location"
-                  />
-                </div>
-              </div>
-              <div class="field">
-                <label class="label" for="start-input">Start Date</label>
-                <div class="control">
-                  <input class="input" type="date" name="start-input" id="start-input" />
-                </div>
-              </div>
-              <div class="field">
-                <label class="label" for="end-input">End Date</label>
-                <div class="control">
-                  <input class="input" type="date" name="end-input" id="end-input" />
-                </div>
-              </div>
-              <div class="field">
-                <label class="label" for="description-input">Description</label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="text"
-                    name="description-input"
-                    id="description-input"
-                    placeholder="Trip Description"
-                  />
-                </div>
-              </div>
-              <div class="field">
-                <label class="label" for="image-input">Image Url</label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="url"
-                    name="image-input"
-                    id="image-input"
-                    placeholder="enter a valid url"
-                  />
-                </div>
-              </div>
-              <div class="field">
-                <div class="control">
-                  <input class="button" type="submit" value="Update Post" />
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+    <main>
+      <section id="prev-post-section"></section>
+      <form id="update-post-form">
+        <label for="location-input">Where did you go?</label>
+        <input
+          type="text"
+          name="location-input"
+          id="location-input"
+          placeholder="Trip Location"
+        />
+        <br />
+        <label for="start-input">Start Date</label>
+        <input type="date" name="start-input" id="start-input" />
+        <br />
+        <label for="end-input">End Date</label>
+        <input type="date" name="end-input" id="end-input" />
+        <br />
+        <label for="description-input">Description</label>
+        <input
+          type="text"
+          name="description-input"
+          id="description-input"
+          placeholder="Trip Description"
+        />
+        <br />
+        <label for="image-input">Image Url</label>
+        <input
+          type="url"
+          name="image-input"
+          id="image-input"
+          placeholder="enter a valid url"
+        />
+        <br />
+        <input type="submit" value="Update Post" />
+      </form>
     </main>
   </body>
 </html>

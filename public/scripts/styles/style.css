@@ -88,3 +88,37 @@ picture {
     overflow-wrap: break-word;
     white-space: normal;
 }
+
+#main-nav {
+  background-color: var(--clr-dark-blue);
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  padding-top: 15px;
+}
+
+#main-nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+#main-nav li {
+  margin-right: 1rem;
+}
+
+#main-nav a {
+  color: white;
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+
+#main-nav li:hover a {
+  transform: scale(1.1);
+}
