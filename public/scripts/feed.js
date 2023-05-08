@@ -209,6 +209,7 @@ async function addModalContent(div, post_id) {
 
       if (commentObj.user_id == user.id) {
         const deleteLink = document.createElement("a");
+        deleteLink.className = "ml-auto";
         deleteLink.innerText = "Delete Comment";
         deleteLink.addEventListener("click", async () => {
           //delete comment from database

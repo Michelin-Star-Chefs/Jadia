@@ -8,6 +8,7 @@ if (!user) return redirectToLogin();
 const user = await fetchLoggedInUser();
 const redirectToLogin = () => window.location.assign("/login.html");
 
+
 const main = async () => {
   if (!user) redirectToLogin();
   else window.location.assign("/feed.html");
