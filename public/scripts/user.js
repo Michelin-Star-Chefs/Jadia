@@ -13,7 +13,7 @@ const [pfp, err] = await handleFetch(`/api/users/pfp/${user.id}`);
 const isAuthError = err => err.status === 401 || err.status === 403;
 const redirectToLogin = () => window.location.assign("/login.html");
 const renderUsername = username => {
-  document.querySelector("#username").textContent = username;
+  document.querySelector("#username").textContent = `Hi ${username}!`;
 };
 const renderPFP = link => {
   document.querySelector("#profile-picture").src = link;
